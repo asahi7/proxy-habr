@@ -1,7 +1,8 @@
 from flask import Flask
 import requests
 import re
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
+import html
 
 
 app = Flask(__name__)
@@ -31,6 +32,7 @@ def swap_habr_links(text, link):
 # Appends '™' character to words with length of 6 chars.
 # Examines all text within tags in DOM and replaces it with new formatted one.
 def append_tm(text):
+    text = html.unescape(text)
     soup = BeautifulSoup(text, 'html.parser')
     excluded_tags = [
         'script',
@@ -56,7 +58,11 @@ def append_tm(text):
         for child in tag.children:
             if child.name in excluded_tags:
                 continue
-            if hasattr(child, 'string') and child.string is not None:
+            if hasattr(
+                    child,
+                    'string') and child.string is not None and not isinstance(
+                    child.string,
+                    Comment):
                 text = str(child.string)
                 newtext = ""
                 word = ""

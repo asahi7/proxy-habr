@@ -91,6 +91,12 @@ class AppTest(unittest.TestCase):
         self.assertEqual(
             app.append_tm('<svg>Good friend!</svg>'),
             '<svg>Good friend!</svg>')
+        self.assertEqual(
+            app.append_tm('<section><div><!-- /235032688/HH/HH01_ATF_Poster --></div></section>'),
+            '<section><div><!-- /235032688/HH/HH01_ATF_Poster --></div></section>')
+        self.assertEqual(app.append_tm('<b>&pound;682m</b>'), '<b>£682m</b>')
+        self.assertEqual(app.append_tm('<b>&plus;</b>'), '<b>+</b>')
+        self.assertEqual(app.append_tm('<b>&plus;53</b>'), '<b>+53</b>')
 
 
 if __name__ == '__main__':
