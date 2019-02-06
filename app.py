@@ -33,7 +33,6 @@ def swap_habr_links(text, link):
 # Appends '™' character to words with length of 6 chars.
 # Examines all text within tags in DOM and replaces it with new formatted one.
 def append_tm(text):
-    text = html.unescape(text)
     soup = BeautifulSoup(text, 'html.parser')
     excluded_tags = [
         'script',
@@ -82,7 +81,7 @@ def append_tm(text):
                     else:
                         newtext += word
                 child.string.replace_with(newtext)
-    return str(soup)
+    return str(soup).replace('&amp;plus', '+')
 
 
 if __name__ == '__main__':
