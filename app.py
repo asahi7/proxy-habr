@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, make_response
 import requests
 import re
 from bs4 import BeautifulSoup, Comment
@@ -17,7 +17,8 @@ def catch_all(path):
     text = r.text
     text = swap_habr_links(text, 'http://127.0.0.1:8232')
     alternate_text = append_tm(text)
-    return alternate_text
+    res = make_response(alternate_text, r.status_code)
+    return res
 
 
 # Alters habr's url links to the address of proxy-server.
