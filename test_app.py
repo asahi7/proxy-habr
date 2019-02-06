@@ -75,28 +75,31 @@ class AppTest(unittest.TestCase):
     def test_append_tm(self):
         self.assertEqual(
             app.append_tm('<b>Online<i>Worlds<p>Locals</p></i></b>'),
-            '<b>Online™<i>Worlds™<p>Locals™</p></i></b>')
+            '<html><head></head><body><b>Online™<i>Worlds™<p>Locals™</p></i></b></body></html>')
         self.assertEqual(
             app.append_tm('<b>Online<i>World<p>Locals</p></i></b>'),
-            '<b>Online™<i>World<p>Locals™</p></i></b>')
+            '<html><head></head><body><b>Online™<i>World<p>Locals™</p></i></b></body></html>')
         self.assertEqual(
             app.append_tm('<body>Online</body>'),
-            '<body>Online™</body>')
+            '<html><head></head><body>Online™</body></html>')
         self.assertEqual(
             app.append_tm('<body>Hello</body>'),
-            '<body>Hello</body>')
+            '<html><head></head><body>Hello</body></html>')
         self.assertEqual(
             app.append_tm('<body>Good friend!</body>'),
-            '<body>Good friend™!</body>')
+            '<html><head></head><body>Good friend™!</body></html>')
         self.assertEqual(
             app.append_tm('<svg>Good friend!</svg>'),
-            '<svg>Good friend!</svg>')
+            '<html><head></head><body><svg>Good friend!</svg></body></html>')
         self.assertEqual(
             app.append_tm('<section><div><!-- /235032688/HH/HH01_ATF_Poster --></div></section>'),
-            '<section><div><!-- /235032688/HH/HH01_ATF_Poster --></div></section>')
-        self.assertEqual(app.append_tm('<b>&pound;682m</b>'), '<b>£682m</b>')
-        self.assertEqual(app.append_tm('<b>&plus;</b>'), '<b>+</b>')
-        self.assertEqual(app.append_tm('<b>&plus;53</b>'), '<b>+53</b>')
+            '<html><head></head><body><section><div><!-- /235032688/HH/HH01_ATF_Poster --></div></section></body></html>')
+        self.assertEqual(app.append_tm('<b>&pound;682m</b>'),
+                         '<html><head></head><body><b>£682m</b></body></html>')
+        self.assertEqual(app.append_tm('<b>&plus;</b>'),
+                         '<html><head></head><body><b>+</b></body></html>')
+        self.assertEqual(app.append_tm('<b>&plus;53</b>'),
+                         '<html><head></head><body><b>+53</b></body></html>')
 
 
 if __name__ == '__main__':
